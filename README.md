@@ -1,128 +1,129 @@
-WhatsApp Chat Sentiment Analysis in R
-An R script for comprehensive analysis of WhatsApp chat exports. This project extracts valuable insights from your chat history, performing sentiment analysis, visualizing communication patterns, identifying key contributors, and much more.
+# WhatsApp Chat Sentiment Analysis
 
-Description
-This project takes a standard WhatsApp chat .txt export file and transforms it into a rich dataset for analysis. It uses a robust regular expression to parse messages, timestamps, and authors, even handling different timestamp formats (e.g., 12-hour AM/PM). The script then leverages several powerful R libraries to generate a variety of analytical outputs and visualizations, providing a deep dive into the dynamics and emotional tone of the conversation.
+![WhatsApp Logo](https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg)
 
-Features
-Sentiment Analysis: Uses the NRC Word-Emotion Association Lexicon to categorize messages into 8 emotions (anger, anticipation, disgust, fear, joy, sadness, surprise, trust) and 2 sentiments (positive, negative).
+## Project Overview
 
-Data Visualization: Generates a suite of plots to visualize the findings:
+This project performs **comprehensive sentiment analysis and activity visualization** on exported WhatsApp chat data. Using **R** and several data science libraries, it extracts insights such as:
 
-Bar charts for overall sentiment distribution.
+- Overall sentiment distribution (anger, joy, sadness, positive, negative, etc.)  
+- Daily message trends  
+- Active user analysis  
+- Hourly and weekday activity heatmaps  
+- Word clouds of frequently used words  
+- Daily sentiment trends (positive vs negative)  
 
-Pie charts for sentiment proportions.
+It is designed for **researchers, data enthusiasts, and students** who want to explore communication patterns and emotions in WhatsApp chats.
 
-Line charts showing daily message activity.
+---
 
-Heatmaps displaying message frequency by weekday and hour.
+## Features
 
-Bar plots of the most active users.
+1. **Data Cleaning & Preprocessing**  
+   - Handles 12-hour (AM/PM) and 24-hour formats  
+   - Removes media messages (`image omitted`, `video omitted`, etc.)  
+   - Parses timestamps and usernames correctly  
 
-Word Cloud: Creates a word cloud of the most frequently used words in the chat.
+2. **Sentiment Analysis**  
+   - Uses NRC Lexicon (`syuzhet`) to compute 10 sentiment categories  
+   - Generates overall sentiment counts and comparisons (positive vs negative)  
 
-Trend Analysis: Tracks and plots the trends of positive and negative sentiment over time.
+3. **Visualizations**  
+   - Bar charts for sentiment distribution  
+   - Word cloud for frequently used words  
+   - Daily message trends over time  
+   - Activity heatmap: weekdays vs hours  
+   - Top active users  
+   - Daily sentiment trend line chart  
 
-Data Export: Saves the summarized sentiment data to a Sentiment_Output.csv file.
+4. **Emoji Analysis (Optional Extension)**  
+   - Counts and visualizes top emojis used in chats  
 
-Technologies Used
-R: The primary language for the analysis.
+5. **Exportable Results**  
+   - Saves sentiment summary as CSV for further analysis  
 
-R Libraries:
+---
 
-syuzhet: For sentiment analysis using the NRC lexicon.
+## Installation & Setup
 
-ggplot2: For creating high-quality, aesthetic plots.
+1. Install **R** (version ≥ 4.0 recommended)  
+2. Install required packages (if not already installed):
 
-dplyr: For efficient data manipulation and transformation.
+```r
+install.packages(c(
+  "syuzhet", "ggplot2", "tm", "wordcloud", "RColorBrewer",
+  "lubridate", "dplyr", "pheatmap", "stringr"
+))
+```
 
-stringr: For robust string and regular expression operations.
+3. Set your working directory to the project folder:
+   setwd("C:/path/to/your/project")
 
-tm: For text mining tasks and corpus creation.
+4. Run the R script WhatsApp_Sentiment_Analysis.R
+5. Choose your exported WhatsApp .txt file when prompted.
 
-wordcloud: For generating word clouds.
+## How to Use
 
-lubridate: For easy and powerful date-time parsing.
+1. Export your WhatsApp chat
 
-pheatmap: For generating the activity heatmap.
+  - On Android/iOS: Open chat → More → Export Chat → Without Media (recommended)
 
-Getting Started
-Follow these steps to get the analysis running on your own WhatsApp chat data.
+2. Run the script in RStudio.
 
-Prerequisites
-R installed on your system.
+3. Wait for analysis to complete:
 
-RStudio is highly recommended for a better user experience.
+  - Sentiment summary will print in console
 
-1. Export Your WhatsApp Chat
-First, you need to get the .txt file from WhatsApp.
+  - Visualizations will appear in RStudio plots panel
 
-Open the individual or group chat you want to analyze.
+  - Sentiment_Output.csv will be saved in your working directory
 
-Tap the three dots (⋮) in the top-right corner.
+## Sample Output
 
-Select More > Export chat.
+- Sentiment Bar Chart
 
-Choose Without Media.
+- Word Cloud
 
-Save or send the .txt file to the computer where you have R installed.
+- Daily Activity Line Chart
 
-2. Installation & Setup
-Clone this repository or download the R script to your project folder.
+- Weekday-Hour Heatmap
 
-Open the R script in RStudio.
+- Top Active Users
 
-Install the required packages by running the following command in the R console:
+- Daily Sentiment Trend
 
-R
+## Technologies Used
+- R – main programming language
+  
+- Libraries: syuzhet, ggplot2, tm, wordcloud, lubridate, dplyr, pheatmap, stringr
 
-install.packages(c("syuzhet", "ggplot2", "tm", "wordcloud", "RColorBrewer", "lubridate", "dplyr", "pheatmap", "stringr"))
-In the script, update the working directory to your project folder's path:
+## Contributing
 
-R
+Contributions are welcome! You can:
 
-# Change this path to your project folder
-setwd("C:/path/to/your/project/folder")
-3. Usage
-Run the entire script in RStudio (you can use the "Source" button or Ctrl+Shift+Enter).
+- Add support for iOS and Android chat formats
 
-A file selection window will pop up. Navigate to and select the WhatsApp chat .txt file you exported.
+- Include emoji sentiment analysis
 
-The script will process the data and generate the analyses.
+- Optimize visualization aesthetics
 
-Plots will appear in the "Plots" pane in RStudio.
+- Add interactive dashboards using Shiny or Plotly
 
-The summarized sentiment data will be saved as Sentiment_Output.csv in your working directory.
+## License
 
-Troubleshooting
-"0 Messages Processed" or "Subscript out of bounds" Error
-This is the most common issue and it occurs when the script fails to parse any messages.
+This project is licensed under the MIT License – see the LICENSE
+ file for details.
 
-Cause: The regular expression pattern in Step 4 of the script does not match the timestamp format in your specific WhatsApp .txt file. WhatsApp's export format can vary based on your phone's OS, language, and region settings (e.g., 12-hour vs. 24-hour clock, dd/mm/yy vs. mm/dd/yy).
+## Author
 
-Solution:
-
-Open your .txt file and examine the first few lines to see the exact timestamp format.
-
-In the R script, go to the "Define the Correct Regex Pattern" section.
-
-Several common patterns are provided in comments. Uncomment the pattern that matches your file format and comment out the others.
-
-If none of the provided patterns work, you may need to create a custom one based on your file's format.
-
-Sample Outputs
-Here are some examples of the visualizations this script can generate:
-
-Sentiment Distribution Bar Chart
-
-Daily Message Activity
-
-Word Cloud
-
-Activity Heatmap (Weekday vs. Hour)
-
-Author
 Teja Poosa
+Computer Science Student | Big Data Analytics Enthusiast
+[GitHub Profile](https://github.com/teja-afk)
 
-License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+## Acknowledgements
+
+- NRC Emotion Lexicon
+
+- R syuzhet Package Documentation
+
+- ggplot2 Documentation

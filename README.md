@@ -1,129 +1,173 @@
-# WhatsApp Chat Sentiment Analysis
+# 💬 WhatsApp Chat Sentiment Analyzer (v4)
 
-![WhatsApp Logo](https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg)
+<p align="left">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" width="60"/>
+</p>
 
-## Project Overview
-
-This project performs **comprehensive sentiment analysis and activity visualization** on exported WhatsApp chat data. Using **R** and several data science libraries, it extracts insights such as:
-
-- Overall sentiment distribution (anger, joy, sadness, positive, negative, etc.)  
-- Daily message trends  
-- Active user analysis  
-- Hourly and weekday activity heatmaps  
-- Word clouds of frequently used words  
-- Daily sentiment trends (positive vs negative)  
-
-It is designed for **researchers, data enthusiasts, and students** who want to explore communication patterns and emotions in WhatsApp chats.
+> **Version 4.0** – Faster, Interactive, and Insightful  
+> Built with **R Shiny** for real-time sentiment visualization and chat insights.
 
 ---
 
-## Features
+## 📘 Project Overview
 
-1. **Data Cleaning & Preprocessing**  
-   - Handles 12-hour (AM/PM) and 24-hour formats  
-   - Removes media messages (`image omitted`, `video omitted`, etc.)  
-   - Parses timestamps and usernames correctly  
+The **WhatsApp Chat Sentiment Analyzer (v4)** is an advanced R Shiny web application that performs **comprehensive sentiment analysis and activity visualization** on exported WhatsApp chat data.
 
-2. **Sentiment Analysis**  
-   - Uses NRC Lexicon (`syuzhet`) to compute 10 sentiment categories  
-   - Generates overall sentiment counts and comparisons (positive vs negative)  
-
-3. **Visualizations**  
-   - Bar charts for sentiment distribution  
-   - Word cloud for frequently used words  
-   - Daily message trends over time  
-   - Activity heatmap: weekdays vs hours  
-   - Top active users  
-   - Daily sentiment trend line chart  
-
-4. **Emoji Analysis (Optional Extension)**  
-   - Counts and visualizes top emojis used in chats  
-
-5. **Exportable Results**  
-   - Saves sentiment summary as CSV for further analysis  
+It combines **data cleaning, NLP-based sentiment extraction**, and **rich visualizations** to provide an interactive analytical dashboard.  
+This version introduces **faster processing**, a **textual summary panel**, **user filtering**, and an **improved UI** with progress indicators.
 
 ---
 
-## Installation & Setup
+## 🚀 Key Features
 
-1. Install **R** (version ≥ 4.0 recommended)  
-2. Install required packages (if not already installed):
+### 🧹 1. Smart Data Cleaning & Preprocessing
+- Handles both **12-hour (AM/PM)** and **24-hour** chat formats.
+- Removes media placeholders (`<Media omitted>`, `image omitted`, etc.).
+- Parses timestamps and usernames accurately.
+- Filters deleted messages automatically.
 
-```r
-install.packages(c(
-  "syuzhet", "ggplot2", "tm", "wordcloud", "RColorBrewer",
-  "lubridate", "dplyr", "pheatmap", "stringr"
-))
+### 🧠 2. Sentiment Analysis (NRC Lexicon)
+- Uses **NRC Emotion Lexicon** via the `syuzhet` package.
+- Detects 10 emotions including:  
+  `anger`, `anticipation`, `disgust`, `fear`, `joy`, `sadness`, `surprise`, `trust`, `positive`, and `negative`.
+- Calculates **positive vs negative ratios** for chat tone summary.
+
+### 📊 3. Interactive Visualizations
+- **Sentiment Bar Chart:** Overall emotion distribution.  
+- **Positive vs Negative Comparison:** Quick mood snapshot.  
+- **Word Cloud:** Most frequent and meaningful words.  
+- **Daily Activity Line Chart:** Message frequency trends.  
+- **Heatmap (Weekday × Hour):** Peak activity times.  
+- **Top Active Users Chart:** Identifies most engaged participants.  
+- **Daily Sentiment Trend Line:** Tracks emotional flow over time.
+
+### 🧾 4. Textual Summary Dashboard
+A new **“Chat Summary”** tab displays:
+- Total messages and participants  
+- Media messages omitted  
+- Chat duration (start to end)  
+- Most active user and busiest day  
+- Overall positive vs negative sentiment ratio
+
+### ⚡ 5. Optimized Performance
+- Uses `withProgress()` for live progress updates.
+- Faster word frequency analysis using `tidytext`.
+- Efficient filtering by selected users.
+
+---
+
+## 🧩 Technologies Used
+
+| Component | Purpose |
+|------------|----------|
+| **R Shiny** | Interactive web UI |
+| **bslib (Cerulean theme)** | Modern responsive theme |
+| **syuzhet** | NRC-based sentiment analysis |
+| **ggplot2** | Charts and data visualizations |
+| **tidytext** | Word frequency analysis |
+| **wordcloud & RColorBrewer** | Word cloud generation |
+| **lubridate & stringr** | Date-time and text parsing |
+| **dplyr** | Data manipulation |
+| **pheatmap** | Activity heatmap generation |
+
+---
+
+## 🧭 How to Use
+
+### 📥 1. Export Your WhatsApp Chat  
+To analyze a chat, you need to **export it from WhatsApp without media**:  
+
+- **On Android:**  
+  1. Open the chat (individual or group).  
+  2. Tap the **three dots → More → Export chat**.  
+  3. Select **Without Media**.  
+  4. Save or send the `.txt` file to your computer.  
+
+- **On iPhone:**  
+  1. Open the chat → Tap on **Contact name / Group info**.  
+  2. Tap **Export Chat**.  
+  3. Choose **Without Media**.  
+  4. Save the `.txt` file via Mail or Files app.
+
+📄 **Example file name:**  
+
+GroupName.txt
+
+---
+
+### 🧩 2. Launch the Application  
+
+Open the R project or run the Shiny app directly:
+
+```
+library(shiny)
+runApp("path_to_project_folder")
 ```
 
-3. Set your working directory to the project folder:
-   setwd("C:/path/to/your/project")
+OR if your main app file is named app.R, run:
 
-4. Run the R script WhatsApp_Sentiment_Analysis.R
-5. Choose your exported WhatsApp .txt file when prompted.
+```
+shiny::runApp("app.R")
+```
 
-## How to Use
+This will start a local Shiny server and open the dashboard in your browser.
 
-1. Export your WhatsApp chat
+---
 
-  - On Android/iOS: Open chat → More → Export Chat → Without Media (recommended)
+### 📊 3. Upload the Chat File
 
-2. Run the script in RStudio.
+Once the dashboard loads:
 
-3. Wait for analysis to complete:
+Click the “Browse” / “Upload Chat File” button.
 
-  - Sentiment summary will print in console
+Select your exported .txt WhatsApp chat file.
 
-  - Visualizations will appear in RStudio plots panel
+Wait a few seconds — progress indicators will show while your data is processed.
 
-  - Sentiment_Output.csv will be saved in your working directory
+✅ The analyzer will automatically:
 
-## Sample Output
+Parse timestamps, usernames, and message content
 
-- Sentiment Bar Chart
+Remove deleted and media messages
 
-- Word Cloud
+Detect chat language and sentiment
 
-- Daily Activity Line Chart
+Display interactive visualizations
 
-- Weekday-Hour Heatmap
+---
 
-- Top Active Users
+### 📈 4. Explore the Dashboard
 
-- Daily Sentiment Trend
+You can navigate through multiple interactive tabs:
 
-## Technologies Used
-- R – main programming language
-  
-- Libraries: syuzhet, ggplot2, tm, wordcloud, lubridate, dplyr, pheatmap, stringr
+Tab	Description
+Overview	Quick summary of messages, participants, and sentiment ratio
+Sentiment Analysis	Bar and line charts of emotional distribution
+Word Cloud	Visualization of most used words
+Activity Trends	Hourly, daily, and weekly activity patterns
+Chat Summary	Textual insights with key highlights
 
-## Contributing
+---
 
-Contributions are welcome! You can:
+### 💡 5. Tips
 
-- Add support for iOS and Android chat formats
+Works best with English chats.
 
-- Include emoji sentiment analysis
+Avoid exporting very large chats (>50,000 messages) for faster performance.
 
-- Optimize visualization aesthetics
+For group chats, use the user filter to analyze messages per participant.
 
-- Add interactive dashboards using Shiny or Plotly
+---
 
-## License
+🧑‍💻 Author
 
-This project is licensed under the MIT License – see the LICENSE
- file for details.
+👤 Teja Poosa
+📍 Third-Year Computer Science Student
 
-## Author
 
-Teja Poosa
-Computer Science Student | Big Data Analytics Enthusiast
-[GitHub Profile](https://github.com/teja-afk)
+🏁 License
 
-## Acknowledgements
+This project is licensed under the MIT License – feel free to use and modify it with proper credit.
 
-- NRC Emotion Lexicon
 
-- R syuzhet Package Documentation
-
-- ggplot2 Documentation
+---
